@@ -20,11 +20,11 @@ const books = [
   { name: "The Light Fantastic", genre: "Fantasy", id: "6", authorId: "3" },
 ];
 
-const authors = {
-  1: { name: "Patrick Rothfuss", age: 44, id: "1" },
-  2: { name: "Brandon Sanderson", age: 42, id: "2" },
-  3: { name: "Terry Pratchett", age: 66, id: "3" },
-};
+const authors = [
+  { name: "Patrick Rothfuss", age: 44, id: "1" },
+  { name: "Brandon Sanderson", age: 42, id: "2" },
+  { name: "Terry Pratchett", age: 66, id: "3" },
+];
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -76,6 +76,20 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         // code to get data from db / other source
         return _.find(authors, { id: args.id });
+      },
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parent, args) {
+        // display all books
+        return books;
+      },
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve(parent, args) {
+        // display all authors
+        return authors;
       },
     },
   },
