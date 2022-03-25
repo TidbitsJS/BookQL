@@ -27,4 +27,23 @@ const POST_BOOK = gql`
   }
 `;
 
-export { GET_BOOKS, GET_AUTHORS, POST_BOOK };
+const GET_BOOK_DETAILS = gql`
+  query GetBookDetails($id: ID!) {
+    book(id: $id) {
+      id
+      name
+      genre
+      author {
+        id
+        name
+        age
+        books {
+          name
+          id
+        }
+      }
+    }
+  }
+`;
+
+export { GET_BOOKS, GET_AUTHORS, POST_BOOK, GET_BOOK_DETAILS };
